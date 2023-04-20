@@ -80,10 +80,10 @@ export function TextEntry() {
               fontWeight='semibold'
               spacing='20px'
             >
-              <Radio value="1" size='lg'>
+              <Radio value="1" size='lg' colorScheme='green'>
                 Exclusively BERT Transformer
               </Radio>
-              <Radio value="2" size='lg'>
+              <Radio value="2" size='lg' colorScheme='green'>
                 Count Vectorizer + BERT Transformer
               </Radio>
             </HStack>
