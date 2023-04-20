@@ -15,9 +15,7 @@ import { useState } from "react";
 
 export function TextEntry() {
   const [input, setInput] = useState("");
-  const [modelSelect, setModelSelect] = useState(1);
-  const [microaggression, setMicroaggression] = useState(false);
-  const [microtype, setMicrotype] = useState('none');
+  const [modelSelect, setModelSelect] = useState('bert');
   const toast = useToast();
 
   const handleChange = (e) => {
@@ -32,30 +30,36 @@ export function TextEntry() {
   const handleSubmit = () => {
     console.log(input);
 
-
-    // HERE IS WHERE FE WILL INTERACT WITH MODEL!!
-
-    // send "input" to model
-    // get back info
-    // set microaggression boolean state 
-    // set microtype 
-
-    if (!microaggression) {
-      toast({
-        title: "This is a microaggression",
-        description: "it is a thing type of microaggression",
-        status: "error",
-        duration: 10000,
-        isClosable: true,
+    fetch("http://localhost:8080/", {
+      method: "POST",
+      headers: {
+        "Allow-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: modelSelect,
+        phrase: input,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.is_microaggression) {
+          toast({
+            title: "This is a microaggression",
+            description: `it is a ${data.microaggression_type} type of microaggression`,
+            status: "error",
+            duration: 1000,
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: "This is not a microaggression",
+            status: "success",
+            duration: 10000,
+            isClosable: true,
+          });
+        }
       });
-    } else {
-      toast({
-        title: "This is not a microaggression",
-        status: "success",
-        duration: 10000,
-        isClosable: true,
-      });
-    }
   };
 
   return (
@@ -80,10 +84,10 @@ export function TextEntry() {
               fontWeight='semibold'
               spacing='20px'
             >
-              <Radio value="1" size='lg' colorScheme='green'>
+              <Radio value="bert" size='lg' colorScheme='green'>
                 Exclusively BERT Transformer
               </Radio>
-              <Radio value="2" size='lg' colorScheme='green'>
+              <Radio value="cv" size='lg' colorScheme='green'>
                 Count Vectorizer + BERT Transformer
               </Radio>
             </HStack>
