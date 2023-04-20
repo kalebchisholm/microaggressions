@@ -14,7 +14,6 @@ executing==1.2.0
 filelock==3.12.0
 Flask==2.2.3
 Flask-Cors==3.0.10
-fonttools==4.39.3
 fsspec==2023.4.0
 gymnasium==0.27.0
 gymnasium-notices==0.0.1
