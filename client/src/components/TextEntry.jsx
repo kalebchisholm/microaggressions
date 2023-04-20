@@ -46,7 +46,7 @@ export function TextEntry() {
         if (data.is_microaggression) {
           toast({
             title: "This is a microaggression",
-            description: `This falls under the "${data.microaggression_type}" category of microaggressions`,
+            description: `This may fall under the "${data.microaggression_type}" category of microaggressions`,
             status: "error",
             duration: 1000,
             isClosable: true,
