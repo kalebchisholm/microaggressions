@@ -17,6 +17,7 @@ export function TextEntry() {
   const [input, setInput] = useState("");
   const [modelSelect, setModelSelect] = useState(1);
   const [microaggression, setMicroaggression] = useState(false);
+  const [microtype, setMicrotype] = useState('none');
   const toast = useToast();
 
   const handleChange = (e) => {
@@ -29,8 +30,15 @@ export function TextEntry() {
   };
 
   const handleSubmit = () => {
-    // check for MAs here beep
     console.log(input);
+
+
+    // HERE IS WHERE FE WILL INTERACT WITH MODEL!!
+
+    // send "input" to model
+    // get back info
+    // set microaggression boolean state 
+    // set microtype 
 
     if (!microaggression) {
       toast({
@@ -72,10 +80,10 @@ export function TextEntry() {
               fontWeight='semibold'
               spacing='20px'
             >
-              <Radio value="1" size='lg'>
+              <Radio value="1" size='lg' colorScheme='green'>
                 Exclusively BERT Transformer
               </Radio>
-              <Radio value="2" size='lg'>
+              <Radio value="2" size='lg' colorScheme='green'>
                 Count Vectorizer + BERT Transformer
               </Radio>
             </HStack>
