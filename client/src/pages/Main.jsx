@@ -6,12 +6,13 @@ export function Main() {
   return (
     <Box>
       <Heading
-        m="10px"
-        p="10px"
+        m="none"
+        p="30px"
         bg="linear-gradient(137deg, rgba(61,112,104,1) 0%, rgba(20,69,61,1) 100%)"
         textAlign="center"
-        borderRadius="lg"
         color="white"
+        shadow='2px 2px 10px darkgray'
+        fontSize='5xl'
       >
         MICROAGGRESSION CHECKER
       </Heading>
