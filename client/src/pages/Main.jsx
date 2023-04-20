@@ -14,9 +14,7 @@ import {
   useDisclosure,
   Button,
   Text,
-  CircularProgress,
-  CircularProgressLabel,
-  Box,
+  Badge
 } from "@chakra-ui/react";
 import { TextEntry } from "../components/TextEntry";
 import { AiOutlineGithub, AiOutlineInfoCircle } from "react-icons/ai";
@@ -71,38 +69,22 @@ const InfoModal = (props) => {
         <ModalCloseButton />
 
         <ModalBody>
-          <Text>some info about the page</Text>
-          <Text fontSize='xl' fontWeight='bold' mt='10px'>Model Performance:</Text>
+          <Text>
+            This microaggression detector uses two machine learning models in order to determine (1) whether or not the inputted text is a microaggression, and (2) what category of microaggression it falls under. Currently, the models only support 6 categories of microaggressions, with hopes of adding more in the future.
+          </Text>
+          <Text fontSize='md' fontWeight='bold' mt='10px'>Disclaimer</Text>
+          <Text>
+            If you enter a microaggression that does not fall under one of the six categories below, there is a high probability the model may misclassify it as not a microaggression or as a microaggression of an incorrect category.
+          </Text>
+          <Text fontSize='xl' fontWeight='bold' mt='10px'>Microaggression Types Supported:</Text>
           <HStack justify='space-evenly' mt='20px'>
-            <Box>
-              <Stack bg='rgba(20,69,61,1)' p='5px' borderRadius='lg' m='5px' shadow='1px 1px 5px black'>
-              <CircularProgress value={40} color='green.400' m='auto'>
-                <CircularProgressLabel>40%</CircularProgressLabel>
-              </CircularProgress>
-              <Text>
-                this is one stat
-              </Text>
-              </Stack>
-            </Box>
-            <Box>
-              <Stack bg='rgba(20,69,61,1)' p='5px' borderRadius='lg' m='5px' shadow='1px 1px 5px black'>
-                <CircularProgress value={40} color='green.400' m='auto'>
-                  <CircularProgressLabel>40%</CircularProgressLabel>
-                </CircularProgress>
-                <Text>
-                  bungy wungy
-                </Text>
-              </Stack>
-            </Box>
-            <Box>
-              <Stack bg='rgba(20,69,61,1)' p='5px' borderRadius='lg' m='5px' shadow='1px 1px 5px black'>
-                <CircularProgress value={40} color='green.400' m='auto'>
-                  <CircularProgressLabel>40%</CircularProgressLabel>
-                </CircularProgress>
-                <Text>asdasdasdasdasd</Text>
-              </Stack>
-            </Box>
-          </HStack>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Disability</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Racial</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Body</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Gender</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>LGBTQ+</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Age</Badge>
+          </HStack> 
         </ModalBody>
         <ModalFooter>
           <Button
