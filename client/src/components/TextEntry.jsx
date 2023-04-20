@@ -1,16 +1,23 @@
 import React from "react";
 import {
+  Box,
   Button,
   Center,
   HStack,
+  Radio,
+  RadioGroup,
   Stack,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 export function TextEntry() {
   const [input, setInput] = useState("");
+  const [modelSelect, setModelSelect] = useState(1);
+  const [microaggression, setMicroaggression] = useState(false);
+  const toast = useToast();
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -24,6 +31,23 @@ export function TextEntry() {
   const handleSubmit = () => {
     // check for MAs here beep
     console.log(input);
+
+    if (!microaggression) {
+      toast({
+        title: "This is a microaggression",
+        description: "it is a thing type of microaggression",
+        status: "error",
+        duration: 10000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "This is not a microaggression",
+        status: "success",
+        duration: 10000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -33,6 +57,29 @@ export function TextEntry() {
           <Text fontSize="24pt" fontWeight="semibold" pb="20px">
             Check message for microaggressions:
           </Text>
+          <RadioGroup onChange={setModelSelect} value={modelSelect}>
+            <HStack
+              my='-10px'
+              bg="whitesmoke"
+              p="10px"
+              borderRadius="xl"
+              w="min-content"
+              whiteSpace="nowrap"
+              shadow="2px 2px 10px darkgray"
+              border='2px solid black'
+              borderBottomLeftRadius='none'
+              borderBottomRightRadius='none'
+              fontWeight='semibold'
+              spacing='20px'
+            >
+              <Radio value="1" size='lg'>
+                Exclusively BERT Transformer
+              </Radio>
+              <Radio value="2" size='lg'>
+                Count Vectorizer + BERT Transformer
+              </Radio>
+            </HStack>
+          </RadioGroup>
           <Textarea
             placeholder="Enter your text here and see if it is considered a microaggression"
             value={input}
@@ -40,9 +87,10 @@ export function TextEntry() {
             bg="white"
             border="2px solid black"
             borderRadius="xl"
-            maxH='30vh'
+            borderTopLeftRadius='none'
+            maxH="30vh"
             shadow="2px 2px 10px darkgray"
-            _hover={{ border: '2px solid #61A89D'}}
+            _hover={{ border: "2px solid #61A89D" }}
           />
           <HStack>
             <Button
@@ -51,7 +99,7 @@ export function TextEntry() {
               shadow="2px 2px 10px darkgray"
               borderRadius="full"
               bg="#61A89D"
-              _hover={{ bg: "#A3CCC6", shadow: 'none' }}
+              _hover={{ bg: "#A3CCC6", shadow: "none" }}
             >
               Submit
             </Button>
@@ -61,7 +109,7 @@ export function TextEntry() {
               shadow="2px 2px 10px darkgray"
               borderRadius="full"
               bg="#E36372"
-              _hover={{ bg: "#ED97A1", shadow: 'none' }}
+              _hover={{ bg: "#ED97A1", shadow: "none" }}
             >
               Clear
             </Button>

@@ -19,7 +19,8 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { TextEntry } from "../components/TextEntry";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineGithub, AiOutlineInfoCircle } from "react-icons/ai";
+import { BsPersonCircle } from 'react-icons/bs'
 
 export function Main() {
 
@@ -36,15 +37,21 @@ export function Main() {
         shadow="2px 2px 10px darkgray"
         fontSize="5xl"
       >
-        Don't be a meany dot com
+        MICROAGGRESSION DETECTOR
       </Heading>
       <TextEntry />
-      <HStack justify="end" p="10px">
+      <HStack justify="space-between" p="10px" bg="linear-gradient(137deg, rgba(61,112,104,1) 0%, rgba(20,69,61,1) 100%)">
+        <HStack color='#F0E8D1'>
+          <BsPersonCircle fontSize='18pt'/>
+          <Text pr='20px'>Kaleb Chisholm, Sean Jamieson, Mark Alwast, Matt Bardal</Text>
+          <AiOutlineGithub fontSize='20pt'/>
+          <a href="https://github.com/kalebchisholm/microaggressions.git">Github Repository</a>
+        </HStack>
         <IconButton
           variant="ghost"
           borderRadius='full'
           icon={
-            <AiOutlineInfoCircle fontSize="28pt" color="rgba(20,69,61,1)"/>
+            <AiOutlineInfoCircle fontSize="28pt" color="#F0E8D1"/>
           }
           _hover={{bg: 'none', shadow: '2px 2px 10px darkgray'}}
           onClick={onOpen}
@@ -60,7 +67,7 @@ const InfoModal = (props) => {
     <Modal isOpen={props.isOpen} onClose={props.onClose} motionPreset='slideInBottom' isCentered>
       <ModalOverlay />
       <ModalContent bg='rgba(61,112,104,1)' color='white' borderRadius='xl'>
-        <ModalHeader>About Microaggressorlly</ModalHeader>
+        <ModalHeader>About Microaggression Detector</ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>
