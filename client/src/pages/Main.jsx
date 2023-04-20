@@ -37,7 +37,7 @@ export function Main() {
         shadow="2px 2px 10px darkgray"
         fontSize="5xl"
       >
-        MICROAGGRESSION DETECTOR
+        Microaggression Detector
       </Heading>
       <TextEntry />
       <HStack justify="space-between" p="10px" bg="linear-gradient(137deg, rgba(61,112,104,1) 0%, rgba(20,69,61,1) 100%)">
