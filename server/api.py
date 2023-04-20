@@ -9,10 +9,12 @@ app = Flask(__name__)
 cors = CORS(app, origins="*", supports_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-BINARY_VECTORIZER = joblib.load('utils/finalized_vectorizer_binary_model.pkl')
-MULTICLASS_TOKENIZER = BertTokenizer()
+BINARY_VECTORIZER = joblib.load('utils/cv_finalized_vectorizer_binary_model.pkl')
+BERT_TOKENIZER = BertTokenizer()
 
-BINARY_SVC_MODEL = joblib.load('models/finalized_binary_microaggression_model_svc.pkl')
+CV_BINARY_SVC_MODEL = joblib.load('models/cv_finalized_binary_microaggression_model_svc.pkl')
+BERT_BINARY_SVC_MODEL = joblib.load('models/bert_finalized_binary_microaggression_model_svc.pkl')
+
 MULTICLASS_MODEL = joblib.load('models/finalized_multiclass_microaggression_model_svc.pkl')
 
 @app.route("/", methods=['POST'])
@@ -20,7 +22,7 @@ MULTICLASS_MODEL = joblib.load('models/finalized_multiclass_microaggression_mode
 def post():
   data = request.get_json()
 
-  is_microaggression = getInitialMAClassification(data.get('phrase'))
+  is_microaggression = getInitialMAClassification(data.get('phrase'), data.get('model'))
 
   if is_microaggression:
     microaggression_type = getMAType(data.get('phrase'))
@@ -32,10 +34,15 @@ def post():
     'microaggression_type': microaggression_type
   })
 
-def getInitialMAClassification(phrase):
-  vectorized_phrase = BINARY_VECTORIZER.transform([phrase])
-  vectorized_phrase_nd = vectorized_phrase.toarray()
-  if BINARY_SVC_MODEL.predict(vectorized_phrase_nd)[0] == 'microaggression':
+def getInitialMAClassification(phrase, model):
+  if model == 'cv':
+    modified_phrase = BINARY_VECTORIZER.transform([phrase]).toarray()
+    current_model = CV_BINARY_SVC_MODEL
+  else:
+    modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
+    current_model = BERT_BINARY_SVC_MODEL
+
+  if current_model.predict(modified_phrase)[0] == 'microaggression':
     return True
   return False
 
@@ -48,7 +55,7 @@ def getMAType(phrase):
     "lgbtq+",
     "racial"
   ]
-  tokenized_phrase = MULTICLASS_TOKENIZER.tokenize(text=[phrase])
+  tokenized_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
   return display_labels[MULTICLASS_MODEL.predict(tokenized_phrase)[0]].strip()
 
 
