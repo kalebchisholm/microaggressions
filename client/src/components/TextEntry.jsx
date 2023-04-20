@@ -29,7 +29,7 @@ export function TextEntry() {
   return (
     <div>
       <Center>
-        <Stack w="50%" mt="200px">
+        <Stack w="50%">
           <Text fontSize="24pt" fontWeight="semibold" pb="20px">
             Check message for microaggressions:
           </Text>
