@@ -1,7 +1,7 @@
 """
 CITATION: 
 Build a BERT Sci-kit Transformer
-Nicolas Bertagnolli, March 19, 2020
+Nicolas Bertagnolli (March 19, 2020)
 https://towardsdatascience.com/build-a-bert-sci-kit-transformer-59d60ddd54a5
 """
 
@@ -22,7 +22,7 @@ class BertTokenizer(object):
     self.model = self.model_class.from_pretrained(self.pretrained_weights)
 
   def tokenize(self, text=[]):
-    df = pd.DataFrame(data={"text":text})
+    df = pd.DataFrame(data={"text": text})
     tokenized = df["text"].swifter.apply((lambda x: self.tokenizer.encode(x, add_special_tokens=True)))
 
     max_len = 0
@@ -30,7 +30,7 @@ class BertTokenizer(object):
       if len(i) > max_len:
         max_len = len(i)
 
-    padded = np.array([i + [0]*(max_len-len(i)) for i in tokenized.values])
+    padded = np.array([i + [0] * (max_len-len(i)) for i in tokenized.values])
 
     attention_mask = np.where(padded != 0, 1, 0)
     input_ids = torch.tensor(padded)
