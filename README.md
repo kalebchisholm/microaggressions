@@ -8,6 +8,5 @@
 - Run the application with `npm start`
 
 ### To start the server
-- `pip install transformers swifter`
-- Install any other dependencies using `pip`
-- Start the server with `python api.py`
+- `pip install -r requirements.txt`
+-  Start the server with `python api.py`
