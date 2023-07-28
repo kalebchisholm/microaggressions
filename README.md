@@ -9,4 +9,5 @@
 
 ### To start the server
 - `pip install -r requirements.txt`
--  Start the server with `python api.py`
+- Install any other dependencies using `pip`
+- Start the server with `python api.py`
