@@ -23,17 +23,16 @@ BINARY_VECTORIZER = joblib.load('utils/binary_cv_vectorizer.pkl')
 BERT_TOKENIZER = BertTokenizer()
 
 
-CV_BINARY_SVC_MODEL = joblib.load('models1/binary_CV_poly_SVC.pkl')
-BERT_BINARY_POLY_SVC_MODEL = joblib.load('models1/binary_bert_poly(hyper).pkl')
+CV_BINARY_SVC_MODEL = joblib.load('models/binary_CV_poly_SVC.pkl')
+BERT_BINARY_POLY_SVC_MODEL = joblib.load('models/binary_bert_poly(hyper).pkl')
 
 
-# MULTICLASS_MODEL = joblib.load('models/finalized_multiclass_microaggression_model_svc.pkl')
 MULTICLASS_MODEL = joblib.load('models1/multi_hyper_CNB.pkl')
 
 
 with tf.keras.utils.custom_object_scope({'TFRobertaModel': TFRobertaModel}):
     # Load or create your Keras model here
-    MULTICLASS_MODEL_Roberta = tf.keras.models.load_model('models1/roberta_92.h5')
+    MULTICLASS_MODEL_Roberta = tf.keras.models.load_model('models/roberta_92.h5')
 
 
 # Configure singular route for POST requests from front-end
@@ -78,7 +77,7 @@ def getInitialMAClassification(phrase, model):
 
   if model == 'bert+rfc+roberta':
     modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])    
-    current_model = joblib.load('models1/binary_bert_RFC.pkl')
+    current_model = joblib.load('models/binary_bert_RFC.pkl')
     ans_bert = current_model.predict(modified_phrase)[0]
     if ans_bert == 0:
       return True
@@ -86,7 +85,7 @@ def getInitialMAClassification(phrase, model):
     
   if model == 'bert+poly_svm+roberta':
     modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
-    current_model = joblib.load('models1/binary_bert_poly(hyper).pkl')
+    current_model = joblib.load('models/binary_bert_poly(hyper).pkl')
     ans_bert = current_model.predict(modified_phrase)[0]
     if ans_bert == 0:
       return True
