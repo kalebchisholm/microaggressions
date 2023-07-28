@@ -1,4 +1,4 @@
-# microaggressions
+# Microaggressions
 
 ## A ML model to detect microaggressions in conversation
 
@@ -6,7 +6,7 @@
 Due to storage restrictions in GitHub, the model is stored in Google Drive (2GB):
 https://drive.google.com/file/d/1X_D0rS-BT-GyBZmlEwAlUl1sZh2M3-iZ/view?usp=sharing
 
-Download the model to  `server/models/`
+Download the RoBERTa model to  `server/models/`
 ### To start the client
 
 - Install the dependencies with `npm i`
