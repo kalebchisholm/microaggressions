@@ -27,7 +27,7 @@ CV_BINARY_SVC_MODEL = joblib.load('models/binary_CV_poly_SVC.pkl')
 BERT_BINARY_POLY_SVC_MODEL = joblib.load('models/binary_bert_poly(hyper).pkl')
 
 
-MULTICLASS_MODEL = joblib.load('models1/multi_hyper_CNB.pkl')
+MULTICLASS_MODEL = joblib.load('models/multi_hyper_CNB.pkl')
 
 
 with tf.keras.utils.custom_object_scope({'TFRobertaModel': TFRobertaModel}):
