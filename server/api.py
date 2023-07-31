@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 import joblib
 import re
-import tensorflow as tf
+
 from transformers import TFRobertaModel
 from flask_cors import CORS, cross_origin
 from flask import jsonify
@@ -29,7 +29,7 @@ BERT_BINARY_POLY_SVC_MODEL = joblib.load('models/binary_bert_poly(hyper).pkl')
 
 MULTICLASS_MODEL = joblib.load('models/multi_hyper_CNB.pkl')
 
-
+import tensorflow as tf
 with tf.keras.utils.custom_object_scope({'TFRobertaModel': TFRobertaModel}):
     # Load or create your Keras model here
     MULTICLASS_MODEL_Roberta = tf.keras.models.load_model('models/roberta_92.h5')
