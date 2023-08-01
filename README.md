@@ -26,5 +26,6 @@ Download the RoBERTa model to  `server/models/`
 
 ### To start the server
 - `pip install -r requirements.txt`
+- `pip install torch==2.0.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 - Install any other dependencies using `pip`
 - Start the server with `python api.py`
