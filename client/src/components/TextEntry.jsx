@@ -87,14 +87,14 @@ export function TextEntry() {
             >
               
 
-              <Radio value="bert+poly_svm+roberta" size='lg' colorScheme='green'>
-                BERT+Poly_SVM+RoBERTa
+              <Radio value="bert+poly_svm+lin_SVM" size='lg' colorScheme='green'>
+                BERT+Poly_SVM+lin_SVM
               </Radio>
-              <Radio value="cv+poly_svm+roberta" size='lg' colorScheme='green'>
-                CountVectorizer+Poly_SVM+RoBERTa
+              <Radio value="cv+poly_svm+CNB" size='lg' colorScheme='green'>
+                CV+Poly_SVM+Complement_NB
               </Radio>    
-              <Radio value="bert+rfc+roberta" size='lg' colorScheme='green'>
-                BERT+RFC+RoBERTa
+              <Radio value="bert+rfc+lin_SVM" size='lg' colorScheme='green'>
+                BERT+RFC+lin_SVM
               </Radio>
               {/*
               <Radio value="cv+poly_svm+CNB" size='lg' colorScheme='green'>

@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 import joblib
 import re
+import pickle
 
 from transformers import TFRobertaModel
 from flask_cors import CORS, cross_origin
@@ -26,9 +27,10 @@ BERT_TOKENIZER = BertTokenizer()
 CV_BINARY_SVC_MODEL = joblib.load('models/binary_CV_poly_SVC.pkl')
 BERT_BINARY_POLY_SVC_MODEL = joblib.load('models/binary_bert_poly(hyper).pkl')
 
-
-MULTICLASS_MODEL = joblib.load('models/multi_hyper_CNB.pkl')
-
+MULTICLASS_MODEL_poly_svm = joblib.load('models/multi_linSVC.pkl')
+MULTICLASS_MODEL = joblib.load('models/multi_linSVC.pkl')
+MULTICLASS_MODEL_CV_CNB = joblib.load('test_hyper_CNB (1).pkl')
+# MULTICLASS_MODEL_CV_CNB = joblib.load('models/multi_hyper_CNB.pkl')
 import tensorflow as tf
 with tf.keras.utils.custom_object_scope({'TFRobertaModel': TFRobertaModel}):
     # Load or create your Keras model here
@@ -46,7 +48,7 @@ def post():
 
   # Check what category of microaggression it falls under, if it is a microaggression
   if is_microaggression:
-    microaggression_type = getMAType(data.get('phrase'))
+    microaggression_type = getMAType(data.get('phrase'), data.get('model'))
   else:
     microaggression_type = ""
 
@@ -65,17 +67,18 @@ def getInitialMAClassification(phrase, model):
   :return: boolean value indicating if it is a microaggression or not
 """
 
-  if model == 'cv+poly_svm+roberta':
+  if model == 'cv+poly_svm+CNB':
     phrase1 = remove_quotes(phrase)
     phrase2=youre_to_you_are(phrase1)
-    modified_phrase = BINARY_VECTORIZER.transform([phrase2]).toarray()    
+    modified_phrase = BINARY_VECTORIZER.transform([phrase2]).toarray()
     current_model = CV_BINARY_SVC_MODEL
     ans_cv = current_model.predict(modified_phrase)[0]
     if ans_cv == 1:
       return True
+    print(modified_phrase)
     return False
-
-  if model == 'bert+rfc+roberta':
+    
+  if model == 'bert+rfc+lin_SVM':
     modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])    
     current_model = joblib.load('models/binary_bert_RFC.pkl')
     ans_bert = current_model.predict(modified_phrase)[0]
@@ -83,20 +86,22 @@ def getInitialMAClassification(phrase, model):
       return True
     return False
     
-  if model == 'bert+poly_svm+roberta':
-    modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
+  # if model == 'bert+poly_svm+roberta':
+  #   modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
+  #   current_model = joblib.load('models/binary_bert_poly(hyper).pkl')
+  #   ans_bert = current_model.predict(modified_phrase)[0]
+  #   if ans_bert == 0:
+  #     return True
+  #   return False
+  
+  if model == 'bert+poly_svm+lin_SVM':
+    phrase = BERT_TOKENIZER.tokenize(text=[phrase])
     current_model = joblib.load('models/binary_bert_poly(hyper).pkl')
-    ans_bert = current_model.predict(modified_phrase)[0]
+    ans_bert = current_model.predict(phrase)[0]
     if ans_bert == 0:
       return True
-    return False
-    
-  # elif model == 'bert+KNN':
-  #   modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
-  #   current_model = joblib.load('models1/binary_bert_KNN.pkl')
-  # elif model == 'cv+poly_svm':
-  #   modified_phrase = BERT_TOKENIZER.tokenize(text=[phrase])
-  #   current_model = joblib.load('models1/binary_CV_poly_SVC.pkl') 
+    return False   
+   
   
 def youre_to_you_are(phrase):
   return re.sub(r"[yY]ou'?re", "you are", phrase)
@@ -133,7 +138,7 @@ def roberta_encode(texts, tokenizer):
         'input_mask': attention_mask,
         'input_type_ids': token_type_ids
     }
-def getMAType(phrase):
+def getMAType(phrase, model):
   """
   Determines the type of microaggression of a given phrase
   :param phrase: the phrase to run through the model
@@ -157,16 +162,28 @@ def getMAType(phrase):
                       6: 'Religion'}
   
 
-  # phrase=phrase.remove_quotes(phrase)
+  phrase=phrase.replace('"', '')
   # new_phrase = phrase.strip(".\" ")
-  new_phrase = phrase.translate({ord("\""):None})
+  # new_phrase = phrase.translate({ord("\""):None})
   # new_phrase = phrase.translate(str.maketrans('"', ' '))
-  print(new_phrase)
-  tokenized_phrase = BERT_TOKENIZER.tokenize(text=[new_phrase])  
-  # return display_labels[MULTICLASS_MODEL.predict(tokenized_phrase)[0]].strip()
-  tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
-  bert_phrase = roberta_encode([new_phrase], tokenizer)
-  return category_to_name[np.argmax(MULTICLASS_MODEL_Roberta.predict(bert_phrase))]
+  print(phrase)
+  tokenized_phrase_bert = BERT_TOKENIZER.tokenize(text=[phrase])
+
+  if model == 'bert+rfc+lin_SVM':  
+    return display_labels[MULTICLASS_MODEL.predict(tokenized_phrase_bert)[0]]
+  if model == 'bert+poly_svm+lin_SVM':
+    return display_labels[MULTICLASS_MODEL.predict(tokenized_phrase_bert)[0]]
+  if model == 'cv+poly_svm+CNB':
+    phrase1 = remove_quotes(phrase)
+    phrase2=youre_to_you_are(phrase1)
+    sample_vectorizer = joblib.load('utils/vectorizer.pkl')
+    modified_phrase = sample_vectorizer.transform([phrase2])
+    return display_labels[MULTICLASS_MODEL_CV_CNB.predict(modified_phrase)[0]]
+  
+''' For RoBERTa model'''
+  # tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
+  # bert_phrase = roberta_encode([new_phrase], tokenizer)
+  # return category_to_name[np.argmax(MULTICLASS_MODEL_Roberta.predict(bert_phrase))]
 
 
 
