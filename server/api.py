@@ -31,10 +31,10 @@ MULTICLASS_MODEL_poly_svm = joblib.load('models/multi_linSVC.pkl')
 MULTICLASS_MODEL = joblib.load('models/multi_linSVC.pkl')
 MULTICLASS_MODEL_CV_CNB = joblib.load('test_hyper_CNB (1).pkl')
 # MULTICLASS_MODEL_CV_CNB = joblib.load('models/multi_hyper_CNB.pkl')
-import tensorflow as tf
-with tf.keras.utils.custom_object_scope({'TFRobertaModel': TFRobertaModel}):
-    # Load or create your Keras model here
-    MULTICLASS_MODEL_Roberta = tf.keras.models.load_model('models/roberta_92.h5')
+# import tensorflow as tf
+# with tf.keras.utils.custom_object_scope({'TFRobertaModel': TFRobertaModel}):
+#     # Load or create your Keras model here
+#     MULTICLASS_MODEL_Roberta = tf.keras.models.load_model('models/roberta_92.h5')
 
 
 # Configure singular route for POST requests from front-end
