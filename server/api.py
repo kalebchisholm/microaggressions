@@ -2,12 +2,10 @@ from flask import Flask
 from flask import request
 import joblib
 import re
-import pickle
-# from transformers import TFRobertaModel
 from flask_cors import CORS, cross_origin
 from flask import jsonify
 from utils.BertTokenizer import BertTokenizer
-import numpy as np
+# import numpy as np #for roberta model
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -22,11 +20,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 BINARY_VECTORIZER = joblib.load('utils/binary_cv_vectorizer.pkl')
 BERT_TOKENIZER = BertTokenizer()
 
-
 CV_BINARY_SVC_MODEL = joblib.load('models/binary_CV_poly_SVC.pkl')
 BERT_BINARY_POLY_SVC_MODEL = joblib.load('models/binary_bert_poly(hyper).pkl')
 
-MULTICLASS_MODEL_poly_svm = joblib.load('models/multi_linSVC.pkl')
 MULTICLASS_MODEL = joblib.load('models/multi_linSVC.pkl')
 MULTICLASS_MODEL_CV_CNB = joblib.load('models/test_hyper_CNB.pkl')
 # MULTICLASS_MODEL_CV_CNB = joblib.load('models/multi_hyper_CNB.pkl')
@@ -74,7 +70,6 @@ def getInitialMAClassification(phrase, model):
     ans_cv = current_model.predict(modified_phrase)[0]
     if ans_cv == 1:
       return True
-    print(modified_phrase)
     return False
     
   if model == 'bert+rfc+lin_SVM':
@@ -108,7 +103,7 @@ def remove_quotes(phrase):
   return phrase.replace('"', '')
   
 # def Roberta_pred(phrase):
-MAX_LEN = 256
+# MAX_LEN = 256
 # def roberta_encode(texts, tokenizer):
 
 #     ct = len(texts)
@@ -152,13 +147,15 @@ def getMAType(phrase, model):
     "Race",
     "Religion"
   ]
-  category_to_name = {0: 'Age',
-                      1: 'Body',
-                      2: 'Disability',
-                      3: 'Gender',
-                      4: 'LGBTQ+',
-                      5: 'Race',
-                      6: 'Religion'}
+  
+  ''' For RoBERTa model'''
+  # category_to_name = {0: 'Age',
+  #                     1: 'Body',
+  #                     2: 'Disability',
+  #                     3: 'Gender',
+  #                     4: 'LGBTQ+',
+  #                     5: 'Race',
+  #                     6: 'Religion'}
   
 
   phrase=phrase.replace('"', '')
