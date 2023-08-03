@@ -3,7 +3,6 @@ from flask import request
 import joblib
 import re
 import pickle
-
 # from transformers import TFRobertaModel
 from flask_cors import CORS, cross_origin
 from flask import jsonify
