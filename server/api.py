@@ -4,7 +4,7 @@ import joblib
 import re
 import pickle
 
-from transformers import TFRobertaModel
+# from transformers import TFRobertaModel
 from flask_cors import CORS, cross_origin
 from flask import jsonify
 from utils.BertTokenizer import BertTokenizer
@@ -12,7 +12,7 @@ import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
 
-from transformers import RobertaTokenizer, TFRobertaModel
+# from transformers import RobertaTokenizer, TFRobertaModel
 
 # Setup Flask application with configured CORS headers
 app = Flask(__name__)
@@ -110,34 +110,34 @@ def remove_quotes(phrase):
   
 # def Roberta_pred(phrase):
 MAX_LEN = 256
-def roberta_encode(texts, tokenizer):
+# def roberta_encode(texts, tokenizer):
 
-    ct = len(texts)
-    input_ids = np.ones((ct, MAX_LEN), dtype='int32')
-    attention_mask = np.zeros((ct, MAX_LEN), dtype='int32')
-    token_type_ids = np.zeros((ct, MAX_LEN), dtype='int32') # Not used in text classification
+#     ct = len(texts)
+#     input_ids = np.ones((ct, MAX_LEN), dtype='int32')
+#     attention_mask = np.zeros((ct, MAX_LEN), dtype='int32')
+#     token_type_ids = np.zeros((ct, MAX_LEN), dtype='int32') # Not used in text classification
 
-    for k, text in enumerate(texts):
-        # Tokenize
-        tok_text = tokenizer.tokenize(text)
+#     for k, text in enumerate(texts):
+#         # Tokenize
+#         tok_text = tokenizer.tokenize(text)
 
-        # Truncate and convert tokens to numerical IDs
-        enc_text = tokenizer.convert_tokens_to_ids(tok_text[:(MAX_LEN-2)])
+#         # Truncate and convert tokens to numerical IDs
+#         enc_text = tokenizer.convert_tokens_to_ids(tok_text[:(MAX_LEN-2)])
 
-        input_length = len(enc_text) + 2
-        input_length = input_length if input_length < MAX_LEN else MAX_LEN
+#         input_length = len(enc_text) + 2
+#         input_length = input_length if input_length < MAX_LEN else MAX_LEN
 
-        # Add tokens [CLS] and [SEP] at the beginning and the end
-        input_ids[k,:input_length] = np.asarray([0] + enc_text + [2], dtype='int32')
+#         # Add tokens [CLS] and [SEP] at the beginning and the end
+#         input_ids[k,:input_length] = np.asarray([0] + enc_text + [2], dtype='int32')
 
-        # Set to 1s in the attention input
-        attention_mask[k,:input_length] = 1
+#         # Set to 1s in the attention input
+#         attention_mask[k,:input_length] = 1
 
-    return {
-        'input_word_ids': input_ids,
-        'input_mask': attention_mask,
-        'input_type_ids': token_type_ids
-    }
+#     return {
+#         'input_word_ids': input_ids,
+#         'input_mask': attention_mask,
+#         'input_type_ids': token_type_ids
+#     }
 def getMAType(phrase, model):
   """
   Determines the type of microaggression of a given phrase
