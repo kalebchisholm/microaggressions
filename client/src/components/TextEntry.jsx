@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   HStack,
+  VStack,
   Radio,
   RadioGroup,
   Stack,
@@ -84,14 +85,27 @@ export function TextEntry() {
               fontWeight='semibold'
               spacing='20px'
             >
-              <Radio value="bert" size='lg' colorScheme='green'>
-                Exclusively BERT Transformer
+              
+
+              <Radio value="bert+poly_svm+lin_SVM" size='lg' colorScheme='green'>
+                BERT+Poly_SVM+lin_SVM
               </Radio>
-              <Radio value="cv" size='lg' colorScheme='green'>
-                Count Vectorizer + BERT Transformer
+              <Radio value="cv+poly_svm+CNB" size='lg' colorScheme='green'>
+                CV+Poly_SVM+Complement_NB
+              </Radio>    
+              <Radio value="bert+rfc+lin_SVM" size='lg' colorScheme='green'>
+                BERT+RFC+lin_SVM
               </Radio>
+              {/*
+              <Radio value="cv+poly_svm+CNB" size='lg' colorScheme='green'>
+                CountVectorizer+Poly_SVM+Complement_NB
+              </Radio> */}
+                            
+
             </HStack>
           </RadioGroup>
+          
+
           <Textarea
             placeholder="Enter your text here and see if it is considered a microaggression"
             value={input}
@@ -101,6 +115,7 @@ export function TextEntry() {
             borderRadius="xl"
             borderTopLeftRadius='none'
             maxH="30vh"
+            maxW="1500"
             shadow="2px 2px 10px darkgray"
             _hover={{ border: "2px solid #61A89D" }}
           />

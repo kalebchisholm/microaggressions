@@ -41,7 +41,7 @@ export function Main() {
       <HStack justify="space-between" p="10px" bg="linear-gradient(137deg, rgba(61,112,104,1) 0%, rgba(20,69,61,1) 100%)">
         <HStack color='#F0E8D1'>
           <BsPersonCircle fontSize='18pt'/>
-          <Text pr='20px'>Kaleb Chisholm, Sean Jamieson, Mark Alwast, Matt Bardal</Text>
+          <Text pr='20px'>Kaleb Chisholm, Sean Jamieson, Mark Alwast, Matt Bardal, Kasi Viswanath Nilla</Text>
           <AiOutlineGithub fontSize='20pt'/>
           <a href="https://github.com/kalebchisholm/microaggressions.git">Github Repository</a>
         </HStack>
@@ -70,20 +70,22 @@ const InfoModal = (props) => {
 
         <ModalBody>
           <Text>
-            This microaggression detector uses two machine learning models in order to determine (1) whether or not the inputted text is a microaggression, and (2) what category of microaggression it falls under. Currently, the models only support 6 categories of microaggressions, with hopes of adding more in the future.
+            This microaggression detector uses various machine learning models in order to determine (1) whether or not the inputted text is a microaggression, and (2) what category of microaggression it falls under. Currently, the models supports 7 categories of microaggressions, with hopes of adding more in the future.
           </Text>
           <Text fontSize='md' fontWeight='bold' mt='10px'>Disclaimer</Text>
           <Text>
-            If you enter a microaggression that does not fall under one of the six categories below, there is a high probability the model may misclassify it as not a microaggression or as a microaggression of an incorrect category.
+            If you enter a microaggression that does not fall under one of the seven categories below, there is a high probability the model may misclassify it as not a microaggression or as a microaggression of an incorrect category.
           </Text>
           <Text fontSize='xl' fontWeight='bold' mt='10px'>Microaggression Types Supported:</Text>
           <HStack justify='space-evenly' mt='20px'>
-            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Disability</Badge>
-            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Racial</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Age</Badge>
             <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Body</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Disability</Badge>
             <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Gender</Badge>
             <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>LGBTQ+</Badge>
-            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Age</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Race</Badge>
+            <Badge bg='#F0E8D1' borderRadius='lg' px='5px' py='2px'>Religion</Badge>
+            
           </HStack> 
         </ModalBody>
         <ModalFooter>
