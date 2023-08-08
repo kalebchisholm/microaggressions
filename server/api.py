@@ -192,6 +192,7 @@ if __name__ == '__main__':
     class FlaskApplication(Application):
         def __init__(self, app, options=None):
             self.application = app
+            self.options = options
             super().__init__()
 
         def load_config(self):
