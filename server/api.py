@@ -184,5 +184,29 @@ def getMAType(phrase, model):
 
 
 # Start app
+# if __name__ == '__main__':
+#   app.run(host='0.0.0.0', port=8080, debug=True)
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8080, debug=True)
+    from gunicorn.app.base import Application
+
+    class FlaskApplication(Application):
+        def __init__(self, app, options=None):
+            self.application = app
+            super().__init__()
+
+        def load_config(self):
+            for key, value in self.options.items():
+                if key in self.cfg.settings and value is not None:
+                    self.cfg.set(key.lower(), value)
+
+        def load(self):
+            return self.application
+
+    options = {
+        'bind': '0.0.0.0:8080',  # Host and port
+        'workers': 4,  # Number of Gunicorn worker processes
+        'worker_class': 'sync',  # Worker class type
+    }
+
+    FlaskApplication(app, options).run()
+
