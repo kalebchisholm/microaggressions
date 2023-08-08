@@ -34,7 +34,7 @@ export function TextEntry() {
     fetch("http://localhost:8080/", {
       method: "POST",
       headers: {
-        "Allow-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
