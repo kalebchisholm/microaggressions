@@ -33,7 +33,7 @@ MULTICLASS_MODEL_CV_CNB = joblib.load('models/test_hyper_CNB.pkl')
 
 
 # Configure singular route for POST requests from front-end
-@app.route("/", methods=['POST','GET'])
+@app.route("/", methods=['POST'])
 @cross_origin(supports_credentials=True)
 def post():
   data = request.get_json()
@@ -180,8 +180,6 @@ def getMAType(phrase, model):
   # tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
   # bert_phrase = roberta_encode([new_phrase], tokenizer)
   # return category_to_name[np.argmax(MULTICLASS_MODEL_Roberta.predict(bert_phrase))]
-
-
 
 # Start app
 if __name__ == '__main__':
