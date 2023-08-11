@@ -1,4 +1,5 @@
 import React from "react";
+//import ip_addr from "./ip.js"; // uncomment for GCP 
 import {
   Button,
   Center,
@@ -28,7 +29,8 @@ export function TextEntry() {
 
   const handleSubmit = () => {
     console.log(input);
-
+  // const url = `http://${ip_addr}:8080/`; // uncomment for GCP
+    // update fetch as fetch(url, { ...} // for GCP
     fetch("http://localhost:8080/", {
       method: "POST",
       headers: {
