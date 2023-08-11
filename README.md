@@ -32,6 +32,7 @@ Download the RoBERTa model to  `server/models/`
 ### To start the server
 - `pip install -r requirements.txt`
 - `pip install torch==2.0.1+cpu -f https://download.pytorch.org/whl/torch_stable.html`
-- `pip install tensorflow==2.12.0` For RoBERTa model.
+- `pip install tensorflow==2.12.0` (For RoBERTa model)![Screenshot 2023-08-11 121239](https://github.com/Yasaman-A/microaggressions/assets/91516578/147a054a-19ce-410b-963b-2c83a97fecbd)
+.
 - Install any other dependencies using `pip`
 - Start the server with `python api.py`
