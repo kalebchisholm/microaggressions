@@ -1,10 +1,8 @@
 import React from "react";
 import {
-  Box,
   Button,
   Center,
   HStack,
-  VStack,
   Radio,
   RadioGroup,
   Stack,
@@ -34,7 +32,7 @@ export function TextEntry() {
     fetch("http://localhost:8080/", {
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Allow-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -96,11 +94,7 @@ export function TextEntry() {
               <Radio value="bert+rfc+lin_SVM" size='lg' colorScheme='green'>
                 BERT+RFC+lin_SVM
               </Radio>
-              {/*
-              <Radio value="cv+poly_svm+CNB" size='lg' colorScheme='green'>
-                CountVectorizer+Poly_SVM+Complement_NB
-              </Radio> */}
-                            
+                                        
 
             </HStack>
           </RadioGroup>
