@@ -43,7 +43,7 @@ export function Main() {
           <BsPersonCircle fontSize='18pt'/>
           <Text pr='20px'>Kaleb Chisholm, Sean Jamieson, Mark Alwast, Matt Bardal, Kasi Viswanath Nilla</Text>
           <AiOutlineGithub fontSize='20pt'/>
-          <a href="https://github.com/kalebchisholm/microaggressions.git">Github Repository</a>
+          <a href="https://github.com/Yasaman-A/microaggressions.git">Github Repository</a>
         </HStack>
         <IconButton
           variant="ghost"
